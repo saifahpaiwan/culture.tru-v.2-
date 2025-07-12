@@ -1,0 +1,64 @@
+# version: '3.9'
+
+networks:
+  web_network:
+    name: culture
+    driver: bridge
+
+services:
+
+  app:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: culture-app
+    container_name: culture_app
+    restart: always
+    volumes:
+      - ./src:/var/www
+    networks:
+      - web_network
+
+  db:
+    platform: linux/amd64
+    image: mysql:5.7
+    container_name: culture_mysql
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password1234!!
+      - MYSQL_DATABASE=culture_db
+      - MYSQL_USER=culture_db
+      - MYSQL_PASSWORD=password1234!!
+    restart: always
+    networks:
+      - web_network
+
+  nginx:
+    platform: linux/amd64
+    image: nginx
+    container_name: culture_nginx
+    volumes:
+      - ./src:/var/www
+      - ./nginx/conf:/etc/nginx/conf.d
+    ports:
+      - "8000:80"
+    restart: always
+    networks:
+      - web_network
+  
+  phpmyadmin:
+    platform: linux/amd64
+    image: phpmyadmin:5.1.0-apache
+    depends_on:
+      - db
+    container_name: culture_phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - 8080:80
+    restart: always
+    networks:
+      - web_network
