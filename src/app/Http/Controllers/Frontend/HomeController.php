@@ -44,6 +44,7 @@ class HomeController extends Controller
             "Query_activity" => activitys::where('deleted_at', 0)->orderBy('id', 'desc')->limit(10)->get(),
             "Query_books" => books::where('deleted_at', 0)->orderBy('id', 'desc')->limit(4)->get(),
             "Query_research" => researchs::where('deleted_at', 0)->orderBy('id', 'desc')->limit(4)->get(),
+            "videoYoutube"  => DB::table('video_youtube')->where('id', 1)->first(),
 
             "bg_detail" => asset('images/bg_detail.jpg'),
         );

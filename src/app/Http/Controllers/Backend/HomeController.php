@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 use App\Models\appeals;
+use App\Models\researchs;
+use App\Models\video_youtube; 
 
 class HomeController extends Controller
 {
@@ -14,7 +16,7 @@ class HomeController extends Controller
     {
         $data = array();
         return view('backend.home', compact('data'));
-    }
+    }  
 
     public function appealslist()
     {
@@ -99,5 +101,23 @@ class HomeController extends Controller
                     return "success";
                 }
         } 
+    }
+
+    public function youtubeEdit()
+    {
+        $data = array(
+            "videoYoutube" => DB::table('video_youtube')->where('id', 1)->first(),
+        );
+        return view('backend.videoYoutube.view', compact('data'));
+    }
+
+     public function youtubeSave(Request $request)
+    { 
+        DB::table('video_youtube')->where('id', $request->id)->update([
+            'link' => $request->link,
+            'deleted_at' => $request->status,
+        ]);
+
+        return redirect()->route('youtube.edit')->with("success", "บันทึกข้อมูลเรียบร้อยแล้ว");
     }
 }

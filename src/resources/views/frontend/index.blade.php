@@ -380,10 +380,14 @@
             </div>
             <div class="col-md-5">
                 <div class="title">
-                    <div class="h2"> ผลงานผ่านเลนส์ </div>
+                    <div class="h2 text-center"> ผลงานผ่านเลนส์ </div>
                 </div>
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/u13frD7rHaY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div class=""> 
+                    @if(isset($data['videoYoutube']->link) && !empty($data['videoYoutube']->link))
+                    <div class="col-md-12 text-center">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{ (isset(explode('?v=', $data['videoYoutube']->link)[1]))? explode('?v=', $data['videoYoutube']->link)[1] : '' }}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

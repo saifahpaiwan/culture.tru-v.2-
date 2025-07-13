@@ -91,6 +91,9 @@ Route::middleware(['isusers'])->group(function () {
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile'); 
     Route::post('save-profile', [ProfileController::class, 'saveprofile'])->name('save.profile'); 
 
+    Route::get('/youtube-edit', [BackendHomeController::class, 'youtubeEdit'])->name('youtube.edit');
+    Route::post('youtube-save', [BackendHomeController::class, 'youtubeSave'])->name('youtube.save'); 
+
     // Roles //
     Route::get('roles-list', [RolesController::class, 'roleslist'])->name('roles.list');
     Route::get('roles-add', [RolesController::class, 'rolesadd'])->name('roles.add'); 
@@ -335,4 +338,6 @@ Route::middleware(['isusers'])->group(function () {
    
     Route::post('summernote-upload-image-endpoint', [SummernoteUploadImageController::class, 'summernoteUploadImageEndpoint'])->name('summernote.upload.image.endpoint');
     Route::post('delete-image-endpoint', [SummernoteUploadImageController::class, 'deleteImageEndpoint'])->name('delete.image.endpoint');
+
+
 }); 

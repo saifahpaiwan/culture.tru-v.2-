@@ -50,7 +50,7 @@
 
         #sidebar-menu>ul>li>a {
             color: #030303;
-        } 
+        }
     </style>
     @yield('style')
 </head>
@@ -217,6 +217,12 @@
                                 <span> ร้องเรียนร้องทุกข์ </span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('youtube.edit') }}">
+                                <i class="fa fa-camera"></i>
+                                <span> แก้ไขวิดีโอผลงานผ่านเลนส์ </span>
+                            </a>
+                        </li> 
 
                         <li>
                             <a href="{{ route('menu.list') }}">
