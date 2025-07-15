@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use DataTables;
 use App\Models\appeals;
 use App\Models\researchs;
+use App\Models\satisfaction;
 use App\Models\video_youtube; 
 
 class HomeController extends Controller
@@ -106,18 +107,35 @@ class HomeController extends Controller
     public function youtubeEdit()
     {
         $data = array(
-            "videoYoutube" => DB::table('video_youtube')->where('id', 1)->first(),
+            "videoYoutube" => video_youtube::where('id', 1)->first(),
         );
         return view('backend.videoYoutube.view', compact('data'));
     }
 
      public function youtubeSave(Request $request)
     { 
-        DB::table('video_youtube')->where('id', $request->id)->update([
+        video_youtube::where('id', $request->id)->update([
             'link' => $request->link,
             'deleted_at' => $request->status,
         ]);
 
         return redirect()->route('youtube.edit')->with("success", "บันทึกข้อมูลเรียบร้อยแล้ว");
+    }
+
+    public function satisfactionEdit()
+    {
+        $data = array(
+            "satisfaction" => satisfaction::where('id', 1)->first(),
+        );
+        return view('backend.satisfaction.view', compact('data'));
+    }
+
+     public function satisfactionSave(Request $request)
+    { 
+        satisfaction::where('id', $request->id)->update([
+            'value' => $request->value ?? 0,
+        ]);
+
+        return redirect()->route('satisfaction.edit')->with("success", "บันทึกข้อมูลเรียบร้อยแล้ว");
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class video_youtube extends Model
 {
     use HasFactory;
+    protected $table = 'video_youtube';
     protected $fillable = [ 
         'id',
         'link', 

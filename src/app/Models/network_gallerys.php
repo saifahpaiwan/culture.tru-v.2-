@@ -10,7 +10,7 @@ class network_gallerys extends Model
     use HasFactory;
     protected $fillable = [ 
         'id',
-        'acticonservation_id',
+        'network_id',
         'image_desktop',  
         
         'created_at',

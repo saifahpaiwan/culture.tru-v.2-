@@ -218,11 +218,23 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('publicinfo.list') }}">
+                                <i class="fa fa-globe"></i>
+                                <span> ข้อมูลสาธารณะ </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('youtube.edit') }}">
                                 <i class="fa fa-camera"></i>
                                 <span> แก้ไขวิดีโอผลงานผ่านเลนส์ </span>
                             </a>
                         </li> 
+                        <li>
+                            <a href="{{ route('satisfaction.edit') }}">
+                                <i class="fa fa-sign-language"></i>
+                                <span> แก้ไขความพึงพอใจ  </span>
+                            </a>
+                        </li>  
 
                         <li>
                             <a href="{{ route('menu.list') }}">

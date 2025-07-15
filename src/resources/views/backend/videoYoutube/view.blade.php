@@ -54,7 +54,7 @@
                   <div class="row">
                     <div class="col-md-12 form-group">
                       <label class="ml-1" for="link">  แก้ไขวิดีโอผลงานผ่านเลนส์ หน้าหลัก <span class="text-danger">*</span></label>
-                      <input id="link" type="text" class="form-control form-control-lg @error('link') invalid @enderror" name="link" value="{{ $data['videoYoutube']->link }}" required autocomplete="link" autofocus placeholder="โปรดระบุข้อมูล...">
+                      <input id="link" type="text" class="form-control form-control-lg @error('link') invalid @enderror" name="link" value="{{ $data['videoYoutube']->link ?? '' }}" required autocomplete="link" autofocus placeholder="โปรดระบุข้อมูล...">
                       @error('link')
                       <ul class="parsley-errors-list filled">
                         <li class="parsley-required">{{ $message }}</li>

@@ -24,10 +24,13 @@ use App\Models\learning_gallerys;
 use App\Models\learning_types;
 use App\Models\network_gallerys;
 use App\Models\networks;
+use App\Models\publicinfo;
+use App\Models\publicinfo_gallerys;
 use App\Models\qualitie_gallerys;
 use App\Models\reportannuals;
 use App\Models\qualities;
 use App\Models\reportannual_gallerys;
+use App\Models\satisfaction;
 use App\Models\studies;
 use App\Models\study_gallerys;
 use Illuminate\Support\Facades\Session;
@@ -38,13 +41,19 @@ class HomeController extends Controller
     {
         $data = array(
             "Query_slideshow" => slideshow::where('deleted_at', 0)->orderBy('id', 'desc')->get(),
-            "Query_popups" => popups::where('deleted_at', 0)->orderBy('id', 'desc')->get(),
+            "Query_popups"  => popups::where('deleted_at', 0)->orderBy('id', 'desc')->get(),
             "Query_news" => news::where('deleted_at', 0)->orderBy('id', 'desc')->limit(4)->get(),
-            "Query_journal" => journals::where('deleted_at', 0)->orderBy('id', 'desc')->limit(5)->get(),
-            "Query_activity" => activitys::where('deleted_at', 0)->orderBy('id', 'desc')->limit(10)->get(),
+            "Query_learning" => learning::where('deleted_at', 0)->orderBy('id', 'desc')->limit(5)->get(),
+            "Query_activity" => activitys::where('deleted_at', 0)->orderBy('id', 'desc')->limit(5)->get(),
             "Query_books" => books::where('deleted_at', 0)->orderBy('id', 'desc')->limit(4)->get(),
             "Query_research" => researchs::where('deleted_at', 0)->orderBy('id', 'desc')->limit(4)->get(),
             "videoYoutube"  => DB::table('video_youtube')->where('id', 1)->first(),
+            
+            "books"     => learning::where('deleted_at', 0)->count(),
+            "journal"   => journals::where('deleted_at', 0)->count(),
+            "research"  => researchs::where('deleted_at', 0)->count(),
+            "project"   => activitys::where('deleted_at', 0)->count(),
+            "star"      => satisfaction::where('id', 1)->first()->value ?? 0,
 
             "bg_detail" => asset('images/bg_detail.jpg'),
         );
@@ -886,6 +895,69 @@ class HomeController extends Controller
 
                 $viewed[$user_ip]['culturehalls'][$result->id]['id']      = $result->id;
                 $viewed[$user_ip]['culturehalls'][$result->id]['user_ip'] = $user_ip;
+                Session::put('user_viewed_ip', $viewed);
+            }
+        }
+    }
+ 
+    public function publicinfolist()
+    {
+        $search = (isset($_GET['search']) && !empty($_GET['search'])) ? $_GET['search'] : null;
+        $year = (isset($_GET['year']) && !empty($_GET['year'])) ? $_GET['year'] : null;
+
+        $query = publicinfo::query();
+        $query->where('deleted_at', 0);
+
+        if (!empty($search)) {
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('intro', 'like', '%' . $search . '%');
+        }
+
+        if (!empty($year)) {
+            $from = ($year - 543) . '-01-01';
+            $to = ($year - 543) . '-12-31';
+            $query->whereBetween('date', [$from, $to]);
+        }
+
+        $result = $query->orderBy('id', 'desc')->paginate(9);
+
+        $data = array(
+            "Query_publicinfo" => $result,
+            "search" => $search,
+            "year" => $year,
+        );
+        return view('frontend.publicinfolist', compact('data'));
+    }
+
+    public function publicinfo($get_id)
+    {
+        $result = publicinfo::where('id', $get_id)->where('deleted_at', 0)->first();
+        $this->countViewPublicinfo($result);
+        $data = array(
+            "get_id" => $get_id,
+            "result_publicinfo" => $result,
+            "gallerys"    => publicinfo_gallerys::where('publicinfo_id', $get_id)->get(),
+            "Query_publicinfo" => publicinfo::where('deleted_at', 0)->inRandomOrder()->orderBy('id', 'desc')->limit(10)->get(),
+        );
+        return view('frontend.publicinfo', compact('data'));
+    }
+
+    function countViewPublicinfo($result)
+    {
+        $viewed = [];
+        $user_ip = request()->ip();
+        if (!Session::get('user_viewed_ip') || !empty(Session::get('user_viewed_ip'))) {
+
+            $userViewedIP = Session::get('user_viewed_ip');
+            $viewed = $userViewedIP;
+            if (!isset($userViewedIP[$user_ip]['publicinfo'][$result->id]['id'])) {
+                $num = $result->count_view + 1;
+                publicinfo::where('id', $result->id)->update([
+                    'count_view' => $num,
+                ]);
+
+                $viewed[$user_ip]['publicinfo'][$result->id]['id']      = $result->id;
+                $viewed[$user_ip]['publicinfo'][$result->id]['user_ip'] = $user_ip;
                 Session::put('user_viewed_ip', $viewed);
             }
         }

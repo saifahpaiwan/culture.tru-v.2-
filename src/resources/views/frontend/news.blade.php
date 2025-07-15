@@ -55,10 +55,7 @@
             <div class="col-md-12">
                 <h1 class="responsive-h1"> {{ $data['result_news']->news_title }} </h1>
             </div>
-            <div class="col-md-4">
-                <img class="rounded w-100 mb-1" src="<?php echo asset('images/news/') . '/' . $data['result_news']->news_image_desktop; ?>" width="100%">
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <?php
                 $w = date("w", strtotime($data['result_news']->news_date));
                 $m = date("m", strtotime($data['result_news']->news_date));
@@ -77,7 +74,11 @@
                 </div>
                 <div class="text-muted mb-1"><i class="fa fa-eye"></i> จำนวนผู้เข้าชม {{ number_format($data['result_news']->count_view) }} คน </div>
                 <div class="sharethis-inline-share-buttons mt-2"></div>
+                <hr>
             </div>
+            <div class="col-md-12">
+                <img class="rounded w-100 mb-1" src="<?php echo asset('images/news/') . '/' . $data['result_news']->news_image_desktop; ?>" width="100%">
+            </div> 
         </div>
         <hr>
         <div class="row mb-2">
@@ -105,7 +106,7 @@
             <div class="col-md-12">
  
                 <div class="zoom-gallery mt-2">
-                    <div class="row">
+                    <div class="row" style="display: flex; flex-wrap: wrap;">
                         @if(isset($data['gallerys']) && count($data['gallerys'])>0)
                         @foreach($data['gallerys'] as $row)
                         <div class="col-xs-6 col-sm-6 col-md-3 text-center">

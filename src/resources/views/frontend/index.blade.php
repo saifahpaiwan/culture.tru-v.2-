@@ -103,17 +103,67 @@
         <div class="row">
             <div class="col-md-9">
                 <div class="top-title">
-                    <div class="sec-title">
-                        <img src="{{ asset('images/logo.png') }}" alt="" width="25" height="25" style="margin-right: 10px;">
-                        <span>สำนักศิลปะและวัฒนธรรม</span>
-                        <div class="h3">โครงการ/กิจกรรม</div>
-                    </div>
-                    <div> <a href="{{ route('activitylist') }}"> <span>ดูทั้งหมด</span> </a> </div>
+                    <a href="{{ route('learningslist') }}">
+                        <div class="sec-title">
+                            <img src="{{ asset('images/logo.png') }}" alt="" width="25" height="25" style="margin-right: 10px;">
+                            <span style="color: #FFF;">สำนักศิลปะและวัฒนธรรม</span>
+                            <div class="h3">แหล่งเรียนรู้ 3 บุรี</div>
+                        </div>
+                    </a>
+                    <div> <a href="{{ route('learningslist') }}"> <span>ดูทั้งหมด</span> </a> </div>
                 </div>
 
                 <div class="row mt-2">
                     <div class="col-md-12">
                         <div class="owl-carousel owl-theme owl-activity">
+                            @if(isset($data['Query_learning']) && count($data['Query_learning'])>0)
+                            @foreach($data['Query_learning'] as $row)
+                            <a href="{{ route('learnings', [$row->id]) }}">
+                                <div class="card mb-2">
+                                    <div class="card-img height-b-150" style="background-image: url(<?php echo asset('images/learning/') . '/' . $row->image_desktop; ?>);"> </div>
+                                    <div class="card-body" style="min-height: 116.67px;">
+                                        <h4 class="m-0 white-space-1 font-size-12">{{ $row->title }}</h4>
+                                        <p class="card-text white-space-2 font-size-11">แหล่งเรียนรู้ {{ $row->rLearningTypes->name ?? '-' }}</p>
+                                        <div>
+                                            <?php
+                                            $w = date("w", strtotime($row->date));
+                                            $m = date("m", strtotime($row->date));
+                                            $d = date("d", strtotime($row->date));
+                                            $Y = date("Y", strtotime($row->date));
+                                            $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัส", "ศุกร์", "เสาร์");
+                                            $ThMonth = array("มกรามก", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+                                            $week = $w;
+                                            $months = $m - 1;
+                                            $day = $d;
+                                            $years = $Y + 543;
+                                            ?>
+                                            <div class="font-size-11"><i class="fa fa-calendar"></i> <?php echo $ThDay[$week] . " " . $day . " " . $ThMonth[$months] . " " . $years; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            @endforeach
+                            @endif
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="top-title">
+                    <a href="{{ route('activitylist') }}">
+                        <div class="sec-title">
+                            <img src="{{ asset('images/logo.png') }}" alt="" width="25" height="25" style="margin-right: 10px;">
+                            <span style="color: #FFF;">สำนักศิลปะและวัฒนธรรม</span>
+                            <div class="h3">โครงการ/กิจกรรม</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+
+                        <div class="owl-carousel owl-theme owl-journal">
                             @if(isset($data['Query_activity']) && count($data['Query_activity'])>0)
                             @foreach($data['Query_activity'] as $row)
                             <a href="{{ route('activity', [$row->id]) }}">
@@ -136,49 +186,10 @@
                                             $years = $Y + 543;
                                             ?>
                                             <div class="font-size-11"><i class="fa fa-calendar"></i> <?php echo $ThDay[$week] . " " . $day . " " . $ThMonth[$months] . " " . $years; ?></div>
-                                            <div class="font-size-11"><i class="fa fa-eye"></i> จำนวนผู้เข้าชม {{ number_format($row->count_view) }} คน </div>
                                         </div>
                                     </div>
                                 </div>
                             </a>
-                            @endforeach
-                            @endif
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-3">
-                <div class="top-title">
-                    <div class="sec-title">
-                        <img src="{{ asset('images/logo.png') }}" alt="" width="25" height="25" style="margin-right: 10px;">
-                        <span>สำนักศิลปะและวัฒนธรรม</span>
-                        <div class="h3">จดหมายข่าวล่าสุด</div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-12">
-
-                        <div class="owl-carousel owl-theme owl-journal">
-                            @if(isset($data['Query_journal']) && count($data['Query_journal'])>0)
-                            @foreach($data['Query_journal'] as $row)
-                            <div class="item">
-                                <div class="service--item book-img" style="background-image: url(<?php echo asset('images/journals/') . '/' . $row->image_desktop; ?>);">
-                                    <div class="flipped">
-                                        <div class="title">
-                                            <h3 class="h3 white-space-1">จดหมายข่าว</h3>
-                                        </div>
-                                        <div class="content">
-                                            <p class="white-space-1">{{ $row->title }}</p>
-                                            <p class="white-space-1">ปีเดือนวารสาร : {{ date("M", strtotime($row->month)).', '.date("Y", strtotime($row->month)) }}</p>
-                                        </div>
-                                        <div class="action">
-                                            <a href="{{ route('journals', [$row->id]) }}" class="btn btn-default">อ่านเพิ่มเติม</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             @endforeach
                             @endif
                         </div>
@@ -191,30 +202,41 @@
 </div>
 <!-- ******ACTIVITY&JOURNAL****** -->
 
-<!-- ******TITLEDETAIL****** -->
-<div data-bg-parallax="{{ $data['bg_detail'] }}">
-    <div class="pd--80-0">
-        <div class="container">
-            <div class="section--title">
-                <h2 class="h2 fa-building-o">สำนักศิลปะและวัฒนธรรม</h2>
-            </div>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-
-                    <div class="subscribe--form text-center">
-                        <p>
-                            เป็นหน่วยงานสนับสนุนการผลิตบัณฑิต โดยจัดกิจกรรมทำนุบำรุงศิลปวัฒนธรรมให้แก่นักเรียน นักศึกษา บุคลากรของมหาวิทยาลัยฯ
-                            และบุคคลทั่วไป อย่างต่อเนื่อง โดยมี การแบ่งการบริหารงานให้สอดคล้องกับภารกิจเป็น 4 งาน ได้แก่ งานธุรการ งานหอวัฒนธรรม
-                            งานส่งเสริมและเผยแพร่ และงานศึกษาค้นคว้าวิจัย
-                        </p>
-                    </div>
-
+<!-- ******Dashboard****** -->
+<div style="padding: 50px 0; background: #eadef0;">
+    <div class="container">
+        <div class="dashboard-box-center">
+            <div class="dashboard-box">
+                <div class="dashboard-content">
+                    <img src="/images/books-stack-of-three.png" class="mb-2 filter-purple" width="40">
+                    <div class="h4 mb-1" style="color: #56174c;"> <?php echo number_format($data['books']); ?> <b>+</b> </div>
+                    <div style="color: #56174c;">แหล่งเรียนรู้</div>
+                </div>
+                <div class="dashboard-content">
+                    <img src="/images/journal.png" class="mb-2 filter-purple" width="40">
+                    <div class="h4 mb-1" style="color: #56174c;"> <?php echo number_format($data['journal']); ?> <b class="b-12">+</b></div>
+                    <div style="color: #56174c;">หนังสือและวารสารสำนักฯ</div>
+                </div>
+                <div class="dashboard-content">
+                    <img src="/images/research.png" class="mb-2 filter-purple" width="40">
+                    <div class="h4 mb-1" style="color: #56174c;"> <?php echo number_format($data['research']); ?> <b class="b-12">+</b></div>
+                    <div style="color: #56174c;">งานวิจัยและบทความ</div>
+                </div>
+                <div class="dashboard-content">
+                    <img src="/images/project-management.png" class="mb-2 filter-purple" width="40">
+                    <div class="h4 mb-1" style="color: #56174c;"> <?php echo number_format($data['project']); ?> <b class="b-12">+</b></div>
+                    <div style="color: #56174c;">โครงการกิจกรรม</div>
+                </div>
+                <div class="dashboard-content" style="border: 0;">
+                    <img src="/images/star.png" class="mb-2 filter-purple" width="40">
+                    <div class="h4 mb-1" style="color: #56174c;"> <?php echo number_format($data['star']); ?> <b class="b-12">+</b></div>
+                    <div style="color: #56174c;">ความพึงพอใจต่อบริการ</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- ******TITLEDETAIL****** -->
+<!-- ******Dashboard****** -->
 
 <!-- ******BOOK****** -->
 <div class="pd--80-0-50">
@@ -328,22 +350,26 @@
                     $years = $Y + 543;
                     ?>
                     <div class="col-md-12">
-                        <div class="row mb-2">
-                            <div class="col-xs-4 col-md-3">
-                                <div class="box-news-img" style="background-image: url(<?php echo asset('images/news') . '/' . $row->news_image_desktop; ?>);"> </div>
-                            </div>
-                            <div class="col-xs-8 col-md-9 d-flex-column">
-                                <div>
-                                    <h4 class="h4 m-0 white-space-1"> {{ $row->news_title }} </h4>
-                                    <p class="white-space-2"> {{ $row->news_intro }} </p>
+                        <div class="card mb-2">
+                            <div class="row">
+                                <div class="col-xs-4 col-md-3">
+                                    <div class="box-news-img" style="background-image: url(<?php echo asset('images/news') . '/' . $row->news_image_desktop; ?>);"> </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="font-size-11"><i class="fa fa-calendar"></i> <?php echo $ThDay[$week] . " " . $day . " " . $ThMonth[$months] . " " . $years; ?></div>
-                                        <div class="font-size-11"><i class="fa fa-eye"></i> จำนวนผู้เข้าชม {{ number_format($row->count_view) }} คน</div>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <a href="{{ route('news', [$row->id]) }}" class="btn btn-default font-size-12">อ่านเพิ่มเติม</a>
+                                <div class="col-xs-8 col-md-9 d-flex-column">
+                                    <div style="padding: 5px;">
+                                        <div>
+                                            <h4 class="h4 m-0 white-space-1"> {{ $row->news_title }} </h4>
+                                            <p class="white-space-2"> {{ $row->news_intro }} </p>
+                                        </div>
+                                        <div class="row" style="display: flex; align-items: flex-end;">
+                                            <div class="col-md-6">
+                                                <span class="font-size-11 me-2"><i class="fa fa-calendar"></i> <?php echo $ThDay[$week] . " " . $day . " " . $ThMonth[$months] . " " . $years; ?></span>
+                                                <span class="font-size-11 me-2"><i class="fa fa-eye"></i> จำนวนผู้เข้าชม {{ number_format($row->count_view) }} คน</span>
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                <a href="{{ route('news', [$row->id]) }}" class="btn btn-default font-size-12">อ่านเพิ่มเติม</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -382,7 +408,7 @@
                 <div class="title">
                     <div class="h2 text-center"> ผลงานผ่านเลนส์ </div>
                 </div>
-                <div class=""> 
+                <div class="">
                     @if(isset($data['videoYoutube']->link) && !empty($data['videoYoutube']->link))
                     <div class="col-md-12 text-center">
                         <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{ (isset(explode('?v=', $data['videoYoutube']->link)[1]))? explode('?v=', $data['videoYoutube']->link)[1] : '' }}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

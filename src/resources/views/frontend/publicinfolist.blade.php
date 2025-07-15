@@ -38,10 +38,10 @@
 @section('content')
 <div class="page-header--section pd--80-0 text-center bg--overlay" data-bg-img="{{ asset('images/bg_detail.jpg') }}">
     <div class="container">
-        <h2 class="h2">โครงการ/กิจกรรม</h2>
+        <h2 class="h2">ข้อมูลสาธารณะ</h2>
         <ul class="breadcrumb">
             <li><a href="#">หน้าหลัก</a></li>
-            <li><span>โครงการ/กิจกรรม</span></li>
+            <li><span>ข้อมูลสาธารณะ</span></li>
         </ul>
     </div>
 </div>
@@ -54,13 +54,13 @@
                     <div class="sec-title">
                         <img src="{{ asset('images/logo.png') }}" alt="" width="25" height="25" style="margin-right: 10px;">
                         <span>สำนักศิลปะและวัฒนธรรม</span>
-                        <div class="h3">รายการโครงการ/กิจกรรม</div>
+                        <div class="h3">รายการข้อมูลสาธารณะ</div>
                     </div>
                     <div>
-                        <form class="header--search navbar-form" action="{{ route('activitylist') }}" method="GET">
+                        <form class="header--search navbar-form" action="{{ route('publicinfolist') }}" method="GET">
                            <div style="display: flex;">
                                 <input type="search" name="search" placeholder="ค้นหาเพิ่มเติม..." class="form-control m-0" value="{{ $data['search'] ?? '' }}" style="margin: 0 1px;">
-                                <input type="number" name="year" placeholder="ค้นหาปีโครงการ พศ." class="form-control m-0" value="{{ $data['year'] ?? '' }}" style="margin: 0 1px;">
+                                <input type="number" name="year" placeholder="ค้นหาปีข้อมูลสาธารณะ พศ." class="form-control m-0" value="{{ $data['year'] ?? '' }}" style="margin: 0 1px;">
                            </div>
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
@@ -69,22 +69,21 @@
             </div>
         </div>
         <div class="row">
-            @if(isset($data['Query_activitys']) && count($data['Query_activitys'])>0)
-            @foreach($data['Query_activitys'] as $row)
+            @if(isset($data['Query_publicinfo']) && count($data['Query_publicinfo'])>0)
+            @foreach($data['Query_publicinfo'] as $row)
             <div class="col-md-4">
-                <a href="{{ route('activity', [$row->id]) }}">
+                <a href="{{ route('publicinfo', [$row->id]) }}">
                     <div class="card mb-2">
-                        <div class="card-img" style="background-image: url(<?php echo asset('images/activity/') . '/' . $row->activity_image_desktop; ?>); "> </div>
+                        <div class="card-img" style="background-image: url(<?php echo asset('images/publicinfo/') . '/' . $row->image_desktop; ?>); "> </div>
                         <div class="card-body">
-                            <h4 class="m-0 white-space-1 font-size-12">{{ $row->activity_title }}</h4>
-                            <p class="card-text white-space-2 font-size-11">{{ $row->activity_intro }}</p>
-                            <div class="font-size-11"><i class="fa fa-calendar"></i> ปีโครงการ {{ $row->activity_year ?? '-' }} </div>
+                            <h4 class="m-0 white-space-1 font-size-12">{{ $row->title }}</h4>
+                            <p class="card-text white-space-2 font-size-11">{{ $row->intro }}</p> 
                             <div style="display: flex; justify-content: space-between;">
                                 <?php
-                                $w = date("w", strtotime($row->activity_date));
-                                $m = date("m", strtotime($row->activity_date));
-                                $d = date("d", strtotime($row->activity_date));
-                                $Y = date("Y", strtotime($row->activity_date));
+                                $w = date("w", strtotime($row->date));
+                                $m = date("m", strtotime($row->date));
+                                $d = date("d", strtotime($row->date));
+                                $Y = date("Y", strtotime($row->date));
                                 $ThDay = array("อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัส", "ศุกร์", "เสาร์");
                                 $ThMonth = array("มกรามก", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
                                 $week = $w;
@@ -101,7 +100,7 @@
             </div>
             @endforeach
             <div class="col-md-12">
-                <div style="float: inline-end;">{!! $data['Query_activitys']->links() !!}</div>
+                <div style="float: inline-end;">{!! $data['Query_publicinfo']->links() !!}</div>
             </div>
             @else
             <div class="col-md-12 text-center"> --- ไม่มีข้อมูล --- </div>

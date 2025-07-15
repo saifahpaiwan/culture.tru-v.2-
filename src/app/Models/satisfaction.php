@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class book_gallerys extends Model
+class satisfaction extends Model
 {
     use HasFactory;
+    protected $table = 'satisfaction';
     protected $fillable = [ 
         'id',
-        'book_id',
-        'image_desktop',  
-        
+        'value',
         'created_at',
+        'updated_at',
         'deleted_at',
     ];
 }

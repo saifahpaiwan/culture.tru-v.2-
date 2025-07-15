@@ -26,6 +26,7 @@ use App\Http\Controllers\Backend\NetworksController;
 use App\Http\Controllers\Backend\ReportannualsController;
 use App\Http\Controllers\Backend\StudysController;
 use App\Http\Controllers\Backend\CulturehallsController;
+use App\Http\Controllers\Backend\PublicInfoController;
 use App\Http\Controllers\Backend\SummernoteUploadImageController;
 
 // Login & Register //
@@ -85,6 +86,9 @@ Route::get('/study/{id}', [FrontendHomeController::class, 'study'])->name('study
 Route::get('/culturehalllist', [FrontendHomeController::class, 'culturehalllist'])->name('culturehalllist'); 
 Route::get('/culturehall/{id}', [FrontendHomeController::class, 'culturehall'])->name('culturehall');
 
+Route::get('/publicinfolist', [FrontendHomeController::class, 'publicinfolist'])->name('publicinfolist'); 
+Route::get('/publicinfo/{id}', [FrontendHomeController::class, 'publicinfo'])->name('publicinfo'); 
+
 Route::middleware(['isusers'])->group(function () {
     // ========= Backend ========= //
     Route::get('/home', [BackendHomeController::class, 'home'])->name('home');
@@ -93,6 +97,9 @@ Route::middleware(['isusers'])->group(function () {
 
     Route::get('/youtube-edit', [BackendHomeController::class, 'youtubeEdit'])->name('youtube.edit');
     Route::post('youtube-save', [BackendHomeController::class, 'youtubeSave'])->name('youtube.save'); 
+
+    Route::get('/satisfaction-edit', [BackendHomeController::class, 'satisfactionEdit'])->name('satisfaction.edit');
+    Route::post('satisfaction-save', [BackendHomeController::class, 'satisfactionSave'])->name('satisfaction.save'); 
 
     // Roles //
     Route::get('roles-list', [RolesController::class, 'roleslist'])->name('roles.list');
@@ -338,6 +345,18 @@ Route::middleware(['isusers'])->group(function () {
    
     Route::post('summernote-upload-image-endpoint', [SummernoteUploadImageController::class, 'summernoteUploadImageEndpoint'])->name('summernote.upload.image.endpoint');
     Route::post('delete-image-endpoint', [SummernoteUploadImageController::class, 'deleteImageEndpoint'])->name('delete.image.endpoint');
-
-
+ 
+    // public info // 
+    Route::get('publicinfo-list', [PublicInfoController::class, 'publicinfolist'])->name('publicinfo.list'); 
+    Route::get('datatable-publicinfo', [PublicInfoController::class, 'datatablePublicinfo'])->name('datatable.publicinfo');
+    Route::get('publicinfo-add', [PublicInfoController::class, 'publicinfoadd'])->name('publicinfo.add'); 
+    Route::get('/publicinfo-edit/{id}', [PublicInfoController::class, 'publicinfoedit'])->name('publicinfo.edit'); 
+    Route::post('close-publicinfo', [PublicInfoController::class, 'closePublicinfo'])->name('close.publicinfo');  
+    Route::post('save-publicinfo', [PublicInfoController::class, 'savePublicinfo'])->name('save.publicinfo');   
+    Route::post('close-publicinfo-pdf', [PublicInfoController::class, 'closePublicinfoPdf'])->name('close.publicinfopdf');
+    
+    Route::get('/publicinfo-dropzone/{id}', [PublicInfoController::class, 'publicinfoDropzone'])->name('publicinfo.dropzone');
+    Route::post('save-publicinfo-dropzone', [PublicInfoController::class, 'savePublicinfoDropzone'])->name('save.publicinfo.dropzone');   
+    Route::post('close-publicinfo-gallery', [PublicInfoController::class, 'closePublicinfoGallery'])->name('close.publicinfo.gallery'); 
+    Route::post('close-publicinfo-dropzone-all', [PublicInfoController::class, 'closePublicinfoDropzoneAll'])->name('close.publicinfo.dropzone.all');
 }); 

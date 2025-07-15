@@ -28,10 +28,10 @@
 @section('content')
 <div class="page-header--section pd--80-0 text-center bg--overlay" data-bg-img="{{ asset('images/bg_detail.jpg') }}">
     <div class="container">
-        <h2 class="h2"> ร้องเรียนร้องทุกข์ </h2>
+        <h2 class="h2"> ช่องทางรับฟังความคิดเห็น ข้อเสนอแนะ และการร้องเรียน </h2>
         <ul class="breadcrumb">
             <li><a href="#">หน้าหลัก</a></li>
-            <li><span> ร้องเรียนร้องทุกข์ </span></li>
+            <li><span> ช่องทางรับฟังความคิดเห็น ข้อเสนอแนะ และการร้องเรียน </span></li>
         </ul>
     </div>
 </div>

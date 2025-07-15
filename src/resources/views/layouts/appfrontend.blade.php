@@ -149,6 +149,54 @@
             height: 150px;
         }
 
+        .dashboard-box-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #FFF;
+            width: 80%;
+            padding: 1rem;
+            box-shadow: 28px 28px 44px -55px rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+        }
+
+        .dashboard-content {
+            display: flex;
+            padding: 1rem;
+            flex-direction: column;
+            border-style: dashed;
+            border-width: 0px 1px 0px 0px;
+            border-color: #E4E4E4;
+            margin: 0px 0px 0px 0px;
+            --e-column-margin-right: 0px;
+            --e-column-margin-left: 0px;
+            text-align: center;
+            align-items: center;
+            width: 100%;
+            height: 200px;
+            justify-content: center;
+        }
+
+        .b-12 {
+            font-size: 12px;
+            color: #FF9800;
+            position: absolute;
+            margin-left: 5px;
+        }
+
+        .filter-purple {
+            filter: invert(17%) sepia(46%) saturate(1120%) hue-rotate(260deg) brightness(86%) contrast(100%);
+        }
+
+        .me-2 {
+            margin-right: 0.5rem;
+        }
         /* Tablet */
         @media (max-width: 768px) {
             .responsive-h1 {
@@ -228,7 +276,7 @@
             </div>
         </div>
 
-        <nav class="header--navbar navbar bg--color-theme" data-sticky="999">
+        <nav class="header--navbar navbar bg--color-theme" data-sticky="999" style="background: linear-gradient(131deg, rgb(254 199 76 / 69%) 0%, #601682db 71%);">
             <div class="container-fluid toggle-mobile">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headerNav" aria-expanded="false">

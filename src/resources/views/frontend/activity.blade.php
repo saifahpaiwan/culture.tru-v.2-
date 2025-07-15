@@ -106,7 +106,7 @@
             <div class="col-md-12">
  
                 <div class="zoom-gallery mt-2">
-                    <div class="row">
+                    <div class="row" style="display: flex; flex-wrap: wrap;">
                         @if(isset($data['gallerys']) && count($data['gallerys'])>0)
                         @foreach($data['gallerys'] as $row)
                         <div class="col-xs-6 col-sm-6 col-md-3 text-center">
