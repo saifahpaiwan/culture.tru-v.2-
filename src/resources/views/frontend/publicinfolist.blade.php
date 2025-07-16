@@ -18,22 +18,7 @@
 <meta property="twitter:image" content="{{ asset('images/logo.png') }}">
 @endsection
 @section('style')
-<style>
-    .header--search .form-control {
-        border: 2px solid #662c81;
-        color: #662c81;
-    }
 
-    .header--search button[type="submit"] {
-        border: 2px solid #662c81;
-        line-height: 18px;
-    }
-
-    .header--search {
-        margin-top: 0;
-        height: 50px;
-    }
-</style>
 @endsection
 @section('content')
 <div class="page-header--section pd--80-0 text-center bg--overlay" data-bg-img="{{ asset('images/bg_detail.jpg') }}">
@@ -71,7 +56,7 @@
         <div class="row">
             @if(isset($data['Query_publicinfo']) && count($data['Query_publicinfo'])>0)
             @foreach($data['Query_publicinfo'] as $row)
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
                 <a href="{{ route('publicinfo', [$row->id]) }}">
                     <div class="card mb-2">
                         <div class="card-img" style="background-image: url(<?php echo asset('images/publicinfo/') . '/' . $row->image_desktop; ?>); "> </div>

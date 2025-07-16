@@ -184,7 +184,7 @@
                         <li>
                             <a href="{{ route('reportannuals.list') }}">
                                 <i class="fa fa-universal-access"></i>
-                                <span> ประกันคุณภาพการศึกษา </span>
+                                <span> รายงานประจำปี </span>
                             </a>
                         </li>
                         <li>

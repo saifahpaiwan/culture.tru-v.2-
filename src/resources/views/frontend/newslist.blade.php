@@ -17,23 +17,7 @@
 <meta property="twitter:description" content="สำนักศิลปะและวัฒนธรรม เป็นหน่วยงานสนับสนุนการผลิตบัณฑิต โดยจัดกิจกรรมทำนุบำรุงศิลปวัฒนธรรมให้แก่นักเรียน นักศึกษา บุคลากรของมหาวิทยาลัยฯ และบุคคลทั่วไป อย่างต่อเนื่อง โดยมี การแบ่งการบริหารงานให้สอดคล้องกับภารกิจเป็น 4 งาน ได้แก่ งานธุรการ งานหอวัฒนธรรม งานส่งเสริมและเผยแพร่ และงานศึกษาค้นคว้าวิจัย">
 <meta property="twitter:image" content="{{ asset('images/logo.png') }}">
 @endsection
-@section('style')
-<style>
-    .header--search .form-control {
-        border: 2px solid #662c81;
-        color: #662c81;
-    }
-
-    .header--search button[type="submit"] {
-        border: 2px solid #662c81;
-        line-height: 18px;
-    }
-
-    .header--search {
-        margin-top: 0;
-        height: 50px;
-    }
-</style>
+@section('style') 
 @endsection
 @section('content')
 <div class="page-header--section pd--80-0 text-center bg--overlay" data-bg-img="{{ asset('images/bg_detail.jpg') }}">
@@ -71,7 +55,7 @@
         <div class="row">
             @if(isset($data['Query_news']) && count($data['Query_news'])>0)
             @foreach($data['Query_news'] as $row)
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
                 <a href="{{ route('news', [$row->id]) }}">
                     <div class="card mb-2">
                         <div class="card-img" style="background-image: url(<?php echo asset('images/news/') . '/' . $row->news_image_desktop; ?>); "> </div>

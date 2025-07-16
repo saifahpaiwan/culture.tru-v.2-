@@ -160,7 +160,7 @@
             align-items: center;
             justify-content: center;
             background: #FFF;
-            width: 80%;
+            /* width: 80%; */
             padding: 1rem;
             box-shadow: 28px 28px 44px -55px rgba(0, 0, 0, 0.5);
             border-radius: 1rem;
@@ -197,11 +197,50 @@
         .me-2 {
             margin-right: 0.5rem;
         }
+
+        .header--search .form-control {
+            border: 2px solid #662c81;
+            color: #662c81;
+        }
+
+        .header--search button[type="submit"] {
+            border: 2px solid #662c81;
+            line-height: 18px;
+        }
+
+        .header--search {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            width: unset;
+        }
+
         /* Tablet */
+        @media (max-width: 950px) {
+            .header--search {
+                position: absolute;
+                top: -40px;
+                right: 10px;
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
             .responsive-h1 {
                 font-size: 24px;
             }
+
+            .dashboard-box {
+                width: 100%;
+            }
+
+            .header--search {
+                position: absolute;
+                top: -40px;
+                right: 10px;
+                width: 100%;
+            }
+
         }
 
         /* Mobile */
@@ -213,12 +252,29 @@
             .height-b-150 {
                 height: 200px;
             }
+
+            .dashboard-box {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .header--search {
+                position: absolute;
+                top: -50px;
+                right: 10px;
+                width: 100%;
+            }
         }
 
         @media (max-width: 600px) {
             .toggle-mobile {
                 justify-content: flex-end;
             }
+
+            .dashboard-box {
+                width: 100%;
+            }
+
         }
     </style>
     @yield('style')
